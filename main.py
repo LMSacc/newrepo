@@ -35,7 +35,7 @@ class EditForm(QMainWindow):
         self.initUI()
 
     def initUI(self):
-        pass
+        print('HAHAHAHA')
 
 
 if __name__ == '__main__':
