@@ -1,6 +1,6 @@
 import sys
 import random
-from PyQt5 import uic, QtWidgets, QtCore
+from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
@@ -8,8 +8,6 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 class Form(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)
-        self.pushButton.clicked.connect(self.drawCircles)
         self.draw = False
         self.initUI()
 
@@ -37,6 +35,7 @@ class Form(QMainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.pushButton.setText(_translate("MainWindow", "Нажми!"))
+        self.pushButton.clicked.connect(self.drawCircles)
 
     def drawCircles(self):
         self.draw = True
@@ -46,7 +45,7 @@ class Form(QMainWindow):
         if self.draw:
             qp = QPainter()
             qp.begin(self)
-            qp.setBrush(QColor(255, 255, 0))
+            qp.setBrush(QColor(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
             r = random.randint(10, 100)
             qp.drawEllipse(random.randint(10, 200), random.randint(10, 200), r, r)
             qp.end()
