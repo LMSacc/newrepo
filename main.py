@@ -1,20 +1,22 @@
 import sys
+import aecf
+import mainUI
 import sqlite3
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QPushButton, QLineEdit
 
 
-class Form(QMainWindow):
+class Form(QMainWindow, mainUI.Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('main.ui', self)
+        self.setupUi(self)
         self.pushButton.clicked.connect(self.edit)
         self.tableWidget.cellDoubleClicked.connect(self.edit)
         self.fill_table()
 
     def fill_table(self):
         self.tableWidget.setColumnCount(7)
-        con = sqlite3.connect('coffee.sqlite')
+        con = sqlite3.connect('data/coffee.sqlite')
         cur = con.cursor()
         data = cur.execute('SELECT * FROM coffee').fetchall()
         titles = list(x[1] for x in cur.execute(f'PRAGMA table_info(coffee)').fetchall())
@@ -30,10 +32,10 @@ class Form(QMainWindow):
         self.ed.show()
 
 
-class EditForm(QMainWindow):
+class EditForm(QMainWindow, aecf.Ui_MainWindow):
     def __init__(self, row, col, tw):
         super().__init__()
-        uic.loadUi('addEditCoffeeForm.ui', self)
+        self.setupUi(self)
         self.row, self.col, self.tw = row, col, tw
         self.lineEdit = QLineEdit(self)
         self.lineEdit.resize(200, 30)
