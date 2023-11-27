@@ -49,7 +49,7 @@ class EditForm(QMainWindow, aecf.Ui_MainWindow):
         txt = self.lineEdit.text().split(';')
         for i in range(7):
             self.tw.setItem(self.tw.rowCount() - 1, i, QTableWidgetItem(txt[i]))
-        con = sqlite3.connect('coffee.sqlite')
+        con = sqlite3.connect('data/coffee.sqlite')
         cur = con.cursor()
         cur.execute(
             f"""
@@ -67,7 +67,7 @@ class EditForm(QMainWindow, aecf.Ui_MainWindow):
              for i in range(self.tw.columnCount())
              if self.tw.item(self.row, i).text() != self.lineEdit.text()}.items()
         ])
-        con = sqlite3.connect('coffee.sqlite')
+        con = sqlite3.connect('data/coffee.sqlite')
         cur = con.cursor()
         cur.execute(f"""
         UPDATE coffee
